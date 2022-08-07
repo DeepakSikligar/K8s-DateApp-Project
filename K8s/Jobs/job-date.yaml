@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: date-app-job
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: date-app-job
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - command:
+            - /bin/sh 
+            - -c
+            - date >> /data/storage.txt
+            image: busybox
+            name: date-app-job
+            resources: {}
+            volumeMounts:
+            - mountPath: /data
+              name: mydir
+            - mountPath: /data/storage.txt
+              name: myfile
+          volumes:
+          - name: mydir
+            hostPath:
+            # Ensure the file directory is created.
+              path: /data
+              type: DirectoryOrCreate
+          - name: myfile
+            hostPath:
+              path: /data/storage.txt
+              type: FileOrCreate
+          restartPolicy: Never
+  schedule: '*/1 * * * *'
+status: {}

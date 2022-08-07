@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: with-pv-date-deploy
+  name: with-pv-date-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: with-pv-date-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: with-pv-date-deploy
+    spec:
+      containers:
+      - image: date-time-app
+        name: date-time-app
+        ports:
+        - containerPort: 3000
+        resources: {}
+        imagePullPolicy: Never
+        volumeMounts:
+        - mountPath: /data
+          name: mypvc
+      volumes:
+      - name: mypvc
+        persistentVolumeClaim:
+          claimName: pvc-date
+status: {}

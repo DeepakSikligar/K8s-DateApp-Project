@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: date-job-with-pv
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: date-job-with-pv
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - date >> /data/storage.txt
+            image: busybox
+            name: date-job-with-pv
+            resources: {}
+            volumeMounts:
+            - mountPath: /data
+              name: mypvc
+          volumes:
+          - name: mypvc
+            persistentVolumeClaim:
+              claimName: pvc-date
+          restartPolicy: Never
+  schedule: '*/1 * * * *'
+status: {}

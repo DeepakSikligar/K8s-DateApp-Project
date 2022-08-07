@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: with-pv-date-deploy
+  name: svc-date
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 31222
+  selector:
+    app: with-pv-date-deploy
+  type: NodePort
+status:
+  loadBalancer: {}

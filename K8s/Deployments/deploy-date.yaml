@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: date-app-deploy
+  name: date-app-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: date-app-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: date-app-deploy
+    spec:
+      containers:
+      - image: date-time-app
+        name: date-time-app
+        ports:
+        - containerPort: 3000
+        resources: {}
+        imagePullPolicy: Never
+        volumeMounts:
+        - mountPath: /data
+          name: mydir
+        - mountPath: /data/storage.txt
+          name: myfile
+      volumes:
+      - name: mydir
+        hostPath:
+        # Ensure the file directory is created.
+          path: /data
+          type: DirectoryOrCreate
+      - name: myfile
+        hostPath:
+          path: /data/storage.txt
+          type: FileOrCreate
+status: {}

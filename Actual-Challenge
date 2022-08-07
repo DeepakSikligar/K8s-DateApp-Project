@@ -1,0 +1,30 @@
+# Objective Statement
+
+To create a Kubernetes deployment with pod(s) and job(s).
+
+A job that runs every minute which appends the current date and time to persistent data storage on the cluster, and a service endpoint
+available to CURL against so that end users can read a list of the last 5 job outputs,returned as JSON.
+
+Allowed to use any language/framework of your choice for the implementation
+of this server, providing the required Docker build file alongside the application code.
+
+ We suggest keeping it simple. If your code requires compilation, you do not need to include
+the compiled binaries, but please provide instructions on how to build them.
+
+Your solution should include a README file that clearly documents how to deploy your
+code, any assumptions made, any additional work you would carry out to turn this into a
+production deployment, and how to CURL against your exposed service.
+
+we recommend you use Minikube as your Kubernetes cluster. 
+The documentation on how to push a custom Docker image to the Minikube in-cluster Docker daemon can be found here.
+
+-----------------------------------------
+
+Deployment -- pod -->>  read the last 5 job outpits in JSON
+cronjon -->> write to file - volume
+Svc ---> Expose svc publicly ---> on the above Deployment --> Get output in JSON
+Volume - PV,PVC
+
+
+
+
